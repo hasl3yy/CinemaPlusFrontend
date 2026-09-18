@@ -2,8 +2,9 @@
   <div class="home-header">
     <h2>Bienvenido, {{ usuario?.nombres }} {{ usuario?.apellidos }}</h2>
     <p>Rol: {{ usuario?.rol?.nombre }}</p>
-    <button (click)="onLogout()">Cerrar sesión</button>
+    <button (click)="irACrearUsuario()">Crear usuario</button>
     <button (click)="irAAnuncios()">Gestionar anuncios</button>
+    <button (click)="onLogout()">Cerrar sesión</button>
   </div>
 
   <h3>Usuarios registrados</h3>
@@ -20,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let u of usuarios">
+      <tr *ngFor="let u of usuarios()">
         <td>{{ u.id_usuario }}</td>
         <td>{{ u.nombres }}</td>
         <td>{{ u.apellidos }}</td>
@@ -31,5 +32,4 @@
       </tr>
     </tbody>
   </table>
-
 </div>

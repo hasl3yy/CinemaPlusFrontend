@@ -1,0 +1,57 @@
+<div class="crear-usuario-container">
+  <div class="header">
+    <h2>Crear Usuario</h2>
+    <button (click)="cancelar()">← Volver</button>
+  </div>
+
+  <div class="form-usuario">
+    <div class="form-group">
+      <label for="nombres">Nombres</label>
+      <input type="text" id="nombres" [(ngModel)]="nombres" name="nombres" />
+    </div>
+
+    <div class="form-group">
+      <label for="apellidos">Apellidos</label>
+      <input type="text" id="apellidos" [(ngModel)]="apellidos" name="apellidos" />
+    </div>
+
+    <div class="form-group">
+      <label for="correo">Correo electrónico</label>
+      <input type="email" id="correo" [(ngModel)]="correo" name="correo" />
+    </div>
+
+    <div class="form-group">
+      <label for="telefono">Teléfono</label>
+      <input type="text" id="telefono" [(ngModel)]="telefono" name="telefono" />
+    </div>
+
+    <div class="form-group">
+      <label for="nombreUsuario">Nombre de usuario</label>
+      <input type="text" id="nombreUsuario" [(ngModel)]="nombreUsuario" name="nombreUsuario" />
+    </div>
+
+    <div class="form-group">
+      <label for="contrasena">Contraseña</label>
+      <input type="password" id="contrasena" [(ngModel)]="contrasena" name="contrasena" />
+    </div>
+
+    <div class="form-group">
+      <label for="rol">Rol</label>
+      <select id="rol" [(ngModel)]="idRolSeleccionado" name="rol">
+        <option [ngValue]="null" disabled>Selecciona un rol</option>
+        <option *ngFor="let r of roles" [ngValue]="r.id_rol">{{ r.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="fotografia">Fotografía de perfil</label>
+      <input type="file" id="fotografia" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+
+    <img *ngIf="fotografiaBase64" [src]="fotografiaBase64" class="preview" alt="Vista previa" />
+
+    <button (click)="onGuardar()" [disabled]="guardando">
+      {{ guardando ? 'Guardando...' : 'Crear usuario' }}
+    </button>
+  </div>
+</div>

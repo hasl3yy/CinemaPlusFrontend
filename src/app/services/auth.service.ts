@@ -9,6 +9,7 @@ export interface Usuario {
   correo: string;
   telefono: string;
   nombre_usuario: string;
+  contrasena?: string;
   rol: { id_rol: number; nombre: string } | null;
   fotografia: string | null;
 }
@@ -29,6 +30,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('usuario');
+
   }
 
   getUsuarioActual(): Usuario | null {

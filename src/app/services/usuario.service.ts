@@ -14,4 +14,8 @@ export class UsuarioService {
   listar(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.apiUrl}/buscar`);
   }
+
+  guardar(usuario: Partial<Usuario>): Observable<Usuario> {
+    return this.http.post<Usuario>(`${this.apiUrl}/guardar`, usuario);
+  }
 }

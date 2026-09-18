@@ -29,7 +29,7 @@
 
   <h3>Anuncios publicados</h3>
   <div class="lista-anuncios">
-    <div class="tarjeta-anuncio" *ngFor="let a of anuncios">
+    <div class="tarjeta-anuncio" *ngFor="let a of anuncios()">
 
       <img *ngIf="a.imagen" [src]="a.imagen" alt="{{ a.titulo }}" />
       <div class="tarjeta-info">

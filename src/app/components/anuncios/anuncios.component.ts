@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ const MAX_TAMANO_MB = 2;
   styleUrls: ['./anuncios.component.css']
 })
 export class AnunciosComponent implements OnInit {
-  anuncios: Anuncio[] = [];
+  anuncios = signal<Anuncio[]>([]);
 
   titulo = '';
   descripcion = '';
@@ -30,9 +30,10 @@ export class AnunciosComponent implements OnInit {
   cargarAnuncios(): void {
     this.anuncioService.listar().subscribe({
       next: (lista) => {
-
-        this.anuncios = lista.sort((a, b) =>
-          (b.fechaPublicacion ?? '').localeCompare(a.fechaPublicacion ?? '')
+        this.anuncios.set(
+          [...lista].sort((a, b) =>
+            (b.fechaPublicacion ?? '').localeCompare(a.fechaPublicacion ?? '')
+          )
         );
       },
       error: (err) => console.error('Error al cargar anuncios:', err)
@@ -42,9 +43,7 @@ export class AnunciosComponent implements OnInit {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
-    if (!file) {
-      return;
-    }
+    if (!file) return;
 
     if (file.size > MAX_TAMANO_MB * 1024 * 1024) {
       alert(`La imagen no puede pesar más de ${MAX_TAMANO_MB}MB.`);
@@ -63,7 +62,6 @@ export class AnunciosComponent implements OnInit {
     if (!this.titulo || !this.descripcion) {
       alert('Completa título y descripción.');
       return;
-
     }
 
     this.guardando = true;
