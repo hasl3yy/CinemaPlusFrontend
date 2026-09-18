@@ -1,0 +1,42 @@
+<div class="anuncios-container">
+  <div class="anuncios-header">
+    <h2>Gestión de Anuncios</h2>
+    <button (click)="volver()">← Volver</button>
+  </div>
+
+  <div class="form-anuncio">
+    <div class="form-group">
+      <label for="titulo">Título</label>
+      <input type="text" id="titulo" [(ngModel)]="titulo" name="titulo" />
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" [(ngModel)]="descripcion" name="descripcion" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="imagen">Imagen</label>
+      <input type="file" id="imagen" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+
+    <img *ngIf="imagenBase64" [src]="imagenBase64" class="preview" alt="Vista previa" />
+
+    <button (click)="onGuardar()" [disabled]="guardando">
+      {{ guardando ? 'Guardando...' : 'Guardar anuncio' }}
+    </button>
+  </div>
+
+  <h3>Anuncios publicados</h3>
+  <div class="lista-anuncios">
+    <div class="tarjeta-anuncio" *ngFor="let a of anuncios">
+
+      <img *ngIf="a.imagen" [src]="a.imagen" alt="{{ a.titulo }}" />
+      <div class="tarjeta-info">
+        <h4>{{ a.titulo }}</h4>
+        <p>{{ a.descripcion }}</p>
+        <small>{{ a.fechaPublicacion | date:'dd/MM/yyyy HH:mm' }}</small>
+      </div>
+    </div>
+  </div>
+</div>

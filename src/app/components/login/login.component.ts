@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -14,24 +15,22 @@ export class LoginComponent {
   correo: string = '';
   contrasena: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onLogin() {
-    // Los nombres 'correo' y 'contrasena' coinciden con los campos de tu base de datos y modelo en Spring
     const credentials = {
       correo: this.correo,
       contrasena: this.contrasena
     };
 
     this.authService.login(credentials).subscribe({
-      next: (response) => {
-        console.log('Login exitoso:', response);
-        alert('¡Bienvenido a CinemaPlus!');
-        // Aquí puedes redirigir a la pantalla principal de tu app
+      next: () => {
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Error en el login:', err);
         alert('Correo o contraseña incorrectos.');
+
       }
     });
   }

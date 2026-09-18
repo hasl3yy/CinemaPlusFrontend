@@ -4,24 +4,24 @@
     
     <form (ngSubmit)="onLogin()">
       <div class="form-group">
-        <label for="email">Correo electrónico</label>
+        <label for="correo">Correo electrónico</label>
         <input 
           type="email" 
-          id="email" 
-          [(ngModel)]="email" 
-          name="email" 
+          id="correo" 
+          [(ngModel)]="correo" 
+          name="correo" 
           placeholder="tu_correo@example.com" 
           required 
         />
       </div>
 
       <div class="form-group">
-        <label for="password">Contraseña</label>
+        <label for="contrasena">Contraseña</label>
         <input 
           type="password" 
-          id="password" 
-          [(ngModel)]="password" 
-          name="password" 
+          id="contrasena" 
+          [(ngModel)]="contrasena" 
+          name="contrasena" 
           placeholder="********" 
           required 
         />
@@ -30,4 +30,5 @@
       <button type="submit" class="btn-submit">Ingresar</button>
     </form>
   </div>
+
 </div>
