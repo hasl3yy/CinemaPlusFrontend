@@ -30,7 +30,6 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('usuario');
-
   }
 
   getUsuarioActual(): Usuario | null {
