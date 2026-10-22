@@ -18,4 +18,8 @@ export class UsuarioService {
   guardar(usuario: Partial<Usuario>): Observable<Usuario> {
     return this.http.post<Usuario>(`${this.apiUrl}/guardar`, usuario);
   }
+
+  eliminar(id:number): Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}/eliminar/${id}`); 
+  }
 }

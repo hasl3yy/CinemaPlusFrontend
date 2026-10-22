@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 export interface Sala {
     id_sala: number;
     nombre: string;
-    fila: number;
-    asiento_por_fila: number;
+    filas: number;
+    asientos_por_fila: number;
     estado: string;
 }
 
