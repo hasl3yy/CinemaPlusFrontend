@@ -1,1 +1,41 @@
-<p>salas works!</p>
+<div class="salas-container">
+  <div class="salas-header">
+    <h2>Gestión de Salas</h2>
+    <button (click)="volver()">← Volver</button>
+  </div>
+
+  <div class="form-sala">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" [(ngModel)]="nombre" name="nombre" />
+    </div>
+
+    <div class="form-group">
+      <label for="filas">Filas</label>
+      <input type="number" id="filas" [(ngModel)]="filas" name="filas" />
+    </div>
+
+    <div class="form-group">
+      <label for="asientos_por_fila">Asientos por Fila</label>
+      <input type="number" id="asientos_por_fila" [(ngModel)]="asientos_por_fila" name="asientos_por_fila" />
+    </div>
+    </div>
+
+
+
+
+    <button (click)="onGuardar()" [disabled]="estado">
+      {{ estado ? 'Guardando...' : 'Guardar sala' }}
+    </button>
+  </div>
+
+  <h3>Salas publicadas</h3>
+  <div class="lista-salas">
+    <div class="tarjeta-sala" *ngFor="let s of salas()">
+
+      <div class="tarjeta-info">
+        <h4>{{ s.nombre }}</h4>
+        <p>{{ s.filas }} filas, {{ s.asientos_por_fila }} asientos por fila</p>
+      </div>
+    </div>
+  </div>

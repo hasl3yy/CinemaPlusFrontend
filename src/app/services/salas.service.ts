@@ -14,7 +14,7 @@ export interface Sala {
     providedIn: 'root'
 })
 
-export class SalasService {
+export class SalaService {
     private apiUrl = 'http://localhost:8080/sala';
 
 
@@ -31,5 +31,13 @@ export class SalasService {
 
     eliminar(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/eliminar/${id}`);
+    }
+
+    activar(id: number): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/activar/${id}`, {});
+    }
+
+    desactivar(id: number): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/desactivar/${id}`, {});
     }
 }

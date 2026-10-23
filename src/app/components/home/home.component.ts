@@ -46,4 +46,8 @@ export class HomeComponent implements OnInit {
   irACrearUsuario(): void {
     this.router.navigate(['/usuarios/nuevo']);
   }
+
+  irACrearSala(): void {
+    this.router.navigate(['/salas/nuevo']);
+  }
 }
