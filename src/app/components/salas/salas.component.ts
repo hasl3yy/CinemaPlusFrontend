@@ -17,11 +17,9 @@ export class SalasComponent implements OnInit {
 
   salas = signal<Sala[]>([]);
   nombre = '';
-  filas = 0;
-  asientos_por_fila = 0;
-  estado = false;
+  cargando = false;
 
-  constructor(private SalaService: SalaService,private router: Router) { }
+  constructor(private SalaService: SalaService, private router: Router) { }
 
   ngOnInit(): void {
     this.cargarSalas();
@@ -39,30 +37,31 @@ export class SalasComponent implements OnInit {
   }
 
   onGuardar(): void {
-    if (!this.nombre || !this.filas || !this.asientos_por_fila) {
+    if (!this.nombre.trim()) {
       alert('Completa todos los campos.');
       return;
     }
 
-    this.estado = true;
+    this.cargando = true;
     this.SalaService.guardar({
       nombre: this.nombre,
-      filas: this.filas,
-      asientos_por_fila: this.asientos_por_fila,
+      estado: 'ACTIVA',
     }).subscribe({
       next: () => {
         this.nombre = '';
-        this.filas = 0;
-        this.asientos_por_fila = 0;
-        this.estado = false;
+        this.cargando = false;
         this.cargarSalas();
       },
       error: (err) => {
-        this.estado = false;
+        this.cargando = false;
         console.error('Error al guardar sala:', err);
         alert('No se pudo guardar la sala.');
       }
     });
+  }
+
+  administrarFilas(idSala: number): void {
+    this.router.navigate(['/salas', idSala, 'filas']);
   }
 
   volver(): void {

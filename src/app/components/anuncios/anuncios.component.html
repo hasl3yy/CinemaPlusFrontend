@@ -16,6 +16,11 @@
     </div>
 
     <div class="form-group">
+      <label for="tipo">tipo</label>
+      <textarea id="tipo" [(ngModel)]="tipo" name="tipo" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
       <label for="imagen">Imagen</label>
       <input type="file" id="imagen" accept="image/*" (change)="onFileSelected($event)" />
     </div>
@@ -35,6 +40,8 @@
       <div class="tarjeta-info">
         <h4>{{ a.titulo }}</h4>
         <p>{{ a.descripcion }}</p>
+        <h3> tipo de anuncio <p>{{ a.tipo }}</p>
+        </h3>
         <small>{{ a.fechaPublicacion | date:'dd/MM/yyyy HH:mm' }}</small>
       </div>
     </div>

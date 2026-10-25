@@ -20,6 +20,7 @@ export class AnunciosComponent implements OnInit {
   descripcion = '';
   imagenBase64: string | null = null;
   guardando = false;
+  tipo ='';
 
   constructor(private anuncioService: AnuncioService, private router: Router) {}
 
@@ -68,13 +69,15 @@ export class AnunciosComponent implements OnInit {
     this.anuncioService.guardar({
       titulo: this.titulo,
       descripcion: this.descripcion,
-      imagen: this.imagenBase64
+      imagen: this.imagenBase64,
+      tipo: this.tipo
     }).subscribe({
       next: () => {
         this.guardando = false;
         this.titulo = '';
         this.descripcion = '';
         this.imagenBase64 = null;
+        this.tipo = '';
         this.cargarAnuncios();
       },
       error: (err) => {

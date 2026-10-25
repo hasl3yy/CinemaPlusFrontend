@@ -8,6 +8,7 @@ export interface Anuncio {
   descripcion: string;
   imagen: string | null;
   fechaPublicacion: string | null;
+  tipo: String;
 }
 
 @Injectable({
