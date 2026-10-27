@@ -45,7 +45,7 @@ export class SalasComponent implements OnInit {
     this.cargando = true;
     this.SalaService.guardar({
       nombre: this.nombre,
-      estado: 'ACTIVA',
+      estado: 'ACTIVO',
     }).subscribe({
       next: () => {
         this.nombre = '';

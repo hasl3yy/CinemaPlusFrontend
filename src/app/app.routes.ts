@@ -11,7 +11,7 @@ export const routes: Routes = [
   { path: 'anuncios', component: AnunciosComponent },
   { path: 'usuarios/nuevo', component: CrearUsuarioComponent },
   { path: 'salas/nuevo', component: SalasComponent },
- //{ path: 'filas/nuevo', component: FilaComponent },
+ { path: 'filas/nuevo', component: FilaComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];

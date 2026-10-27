@@ -5,9 +5,9 @@ import { Sala } from './salas.service';
 
 export interface Asiento {
     id_asiento: number;
-    sala: Sala | null;
-    fila: String;
     numero: number;
+    Fila: Sala | null;
+    
 }
 
 

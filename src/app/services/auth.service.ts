@@ -12,6 +12,7 @@ export interface Usuario {
   contrasena?: string;
   rol: { id_rol: number; nombre: string } | null;
   fotografia: string | null;
+  estado: String;
 }
 
 @Injectable({
@@ -20,12 +21,17 @@ export interface Usuario {
 export class AuthService {
   private apiUrl = 'http://localhost:8080/usuario';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  login(credentials: { correo: string; contrasena: string }): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.apiUrl}/login`, credentials).pipe(
-      tap((usuario) => localStorage.setItem('usuario', JSON.stringify(usuario)))
-    );
+  login(credentials: { correo: string; contrasena: string; estado: string }): Observable<Usuario> {
+
+    if (credentials.estado != 'ACTIVO') {
+      return this.http.post<Usuario>(`${this.apiUrl}/login`, credentials).pipe(
+        tap((usuario) => localStorage.setItem('usuario', JSON.stringify(usuario)))
+      );
+    } else {
+      throw new Error('Usuario inactivo. No se puede iniciar sesión.');
+    }
   }
 
   logout(): void {

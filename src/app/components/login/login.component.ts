@@ -14,13 +14,15 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   correo: string = '';
   contrasena: string = '';
+  estado: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onLogin() {
     const credentials = {
       correo: this.correo,
-      contrasena: this.contrasena
+      contrasena: this.contrasena,
+      estado:this.estado
     };
 
     this.authService.login(credentials).subscribe({

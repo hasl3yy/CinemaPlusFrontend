@@ -22,4 +22,12 @@ export class UsuarioService {
   eliminar(id:number): Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}/eliminar/${id}`); 
   }
+
+  activarUsuario(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/activar/${id}`, {});
+  }
+
+  desactivarUsuario(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/desactivar/${id}`, {});
+  }
 }

@@ -23,7 +23,7 @@ export class FilaService {
     constructor(private http: HttpClient) { }
 
         listaPorSala(idSala: number): Observable<Fila[]> {
-        return this.http.get<Fila[]>(`${this.apiUrl}/buscar/${idSala}`);
+        return this.http.get<Fila[]>(`${this.apiUrl}/buscar/sala/${idSala}`);
     }
 
     
