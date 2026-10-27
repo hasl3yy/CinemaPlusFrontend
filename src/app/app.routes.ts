@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AnunciosComponent } from './components/anuncios/anuncios.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 import { SalasComponent } from './components/salas/salas.component';
+import { FilasComponent } from './components/filas/filas.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -11,7 +12,7 @@ export const routes: Routes = [
   { path: 'anuncios', component: AnunciosComponent },
   { path: 'usuarios/nuevo', component: CrearUsuarioComponent },
   { path: 'salas/nuevo', component: SalasComponent },
- { path: 'filas/nuevo', component: FilaComponent },
+  { path: 'salas/:id/filas', component: FilasComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];

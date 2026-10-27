@@ -50,4 +50,43 @@ export class HomeComponent implements OnInit {
   irACrearSala(): void {
     this.router.navigate(['/salas/nuevo']);
   }
+
+  cargarUsuarios(): void {
+    this.usuarioService.listar().subscribe({
+      next: (lista) => {
+        this.usuarios.set(
+          [...lista].sort((a, b) => a.nombres.localeCompare(b.nombres))
+        );
+      },
+      error: (err) => console.error('Error al cargar usuarios:', err)
+    });
+  }
+
+  desactivarUsuario(idUsuario: number): void {
+    if (confirm('¿Estás seguro de que deseas desactivar este usuario?')) {
+      this.usuarioService.desactivarUsuario(idUsuario).subscribe({
+        next: (response) => {
+
+          this.cargarUsuarios();
+        },
+        error: (err) => {
+          console.error('Error al desactivar el usuario', err);
+        }
+      });
+    }
+  }
+
+  activarUsuario(idUsuario: number): void {
+    if (confirm('¿Estás seguro de que deseas activar este usuario?')) {
+      this.usuarioService.activarUsuario(idUsuario).subscribe({
+        next: (response) => {
+
+          this.cargarUsuarios();
+        },
+        error: (err) => {
+          console.error('Error al activar el usuario', err);
+        }
+      });
+    }
+  }
 }

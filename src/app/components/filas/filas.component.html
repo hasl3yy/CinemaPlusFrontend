@@ -1,0 +1,63 @@
+<div class="salas-container">
+  
+  <!-- Header con botón de regresar -->
+  <div class="salas-header">
+    <div>
+      <h2>Administrar Filas</h2>
+      <small>Sala ID: {{ idSala }}</small>
+    </div>
+    <button (click)="regresar()">Volver a Salas</button>
+  </div>
+
+  <!-- Formulario para crear una nueva Fila -->
+  <div class="form-sala">
+    <h3>Agregar Nueva Fila</h3>
+    <form (ngSubmit)="guardarFila()">
+      
+      <div class="form-group">
+        <label for="nombre">Nombre de la Fila (Ej. A, B, C...)</label>
+        <input 
+          type="text" 
+          id="nombre" 
+          [(ngModel)]="nuevaFila.nombre" 
+          name="nombre" 
+          maxlength="1" 
+          placeholder="Ej: A" 
+          required 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="cantidad_de_asientos">Cantidad de Asientos</label>
+        <input 
+          type="number" 
+          id="cantidad_de_asientos" 
+          [(ngModel)]="nuevaFila.cantidad_de_asientos" 
+          name="cantidad_de_asientos" 
+          min="1" 
+          placeholder="Ej: 10" 
+          required 
+        />
+      </div>
+
+      <button type="submit">Guardar Fila y Generar Asientos</button>
+    </form>
+  </div>
+
+  <!-- Listado de Filas Existentes -->
+  <h3>Filas Existentes</h3>
+  <div class="lista-salas" *ngIf="filas.length > 0; else sinFilas">
+    <div class="tarjeta-sala" *ngFor="let fila of filas">
+      <div class="tarjeta-info">
+        <h4>Fila: {{ fila.nombre }}</h4>
+        <p>Asientos totales: {{ fila.cantidad_de_asientos }}</p>
+        <button class="btn-eliminar" (click)="eliminarFila(fila.id_fila)">Eliminar Fila</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #sinFilas>
+    <p style="color: #888;">No hay filas registradas en esta sala todavía.</p>
+  </ng-template>
+
+</div>

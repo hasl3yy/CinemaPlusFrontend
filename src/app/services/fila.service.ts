@@ -8,7 +8,7 @@ export interface Fila {
     id_fila: number;
     sala: Sala | null;
     nombre: string;
-    cantidad_de_asientos : number;
+    cantidad_de_asientos: number;
 }
 
 @Injectable({
@@ -22,11 +22,11 @@ export class FilaService {
 
     constructor(private http: HttpClient) { }
 
-        listaPorSala(idSala: number): Observable<Fila[]> {
+    listaPorSala(idSala: number): Observable<Fila[]> {
         return this.http.get<Fila[]>(`${this.apiUrl}/buscar/sala/${idSala}`);
     }
 
-    
+
     guardar(fila: Partial<Fila>): Observable<Fila> {
         return this.http.post<Fila>(`${this.apiUrl}/guardar`, fila);
     }

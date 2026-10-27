@@ -26,6 +26,8 @@
       <div class="tarjeta-acciones">
         <!-- Botón para administrar las filas independientes de esta sala -->
         <button (click)="administrarFilas(s.id_sala)">Administrar filas</button>
+        <button (click)="activarSala(s.id_sala)" *ngIf="s.estado === 'INACTIVO'">Activar sala</button>
+        <button (click)="desactivarSala(s.id_sala)" *ngIf="s.estado === 'ACTIVO'">Desactivar sala</button>
       </div>
     </div>
   </div>

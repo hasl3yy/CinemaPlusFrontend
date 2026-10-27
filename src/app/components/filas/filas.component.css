@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.salas-container {
+  min-height: 100vh;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.salas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.salas-header h2 {
+  margin: 0 0 5px 0;
+}
+
+.salas-header button {
+  padding: 8px 16px;
+  background-color: #2b2b2b;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.salas-header button:hover {
+  background-color: #3a3a3a;
+}
+
+.form-sala {
+  background-color: #1e1e1e;
+  padding: 24px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #bbb;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #2b2b2b;
+  color: #fff;
+  box-sizing: border-box;
+  font-family: inherit;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-sala button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #e50914;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+}
+
+.form-sala button[type="submit"]:hover {
+  background-color: #f6121d;
+}
+
+h3 {
+  color: #e50914;
+  margin-bottom: 15px;
+}
+
+.lista-salas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.tarjeta-sala {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #2b2b2b;
+}
+
+.tarjeta-info {
+  padding: 16px;
+}
+
+.tarjeta-info h4 {
+  margin: 0 0 8px 0;
+  color: #e50914;
+  font-size: 20px;
+}
+
+.tarjeta-info p {
+  color: #ccc;
+  margin: 0 0 12px 0;
+  font-size: 14px;
+}
+
+.btn-eliminar {
+  background-color: transparent;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.btn-eliminar:hover {
+  background-color: #ff4d4d;
+  color: white;
+}
