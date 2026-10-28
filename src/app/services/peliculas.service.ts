@@ -21,7 +21,7 @@ export interface Pelicula {
 export class PeliculasService {
   private apiUrl = 'http://localhost:8080/pelicula';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   listar(): Observable<Pelicula[]> {
     return this.http.get<Pelicula[]>(`${this.apiUrl}/buscar`);
@@ -33,5 +33,13 @@ export class PeliculasService {
 
   eliminar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/eliminar/${id}`);
+  }
+
+  activar(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/activar/${id}`, {});
+  }
+
+  desactivar(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/desactivar/${id}`, {});
   }
 }

@@ -30,4 +30,8 @@ export class UsuarioService {
   desactivarUsuario(id: number): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/desactivar/${id}`, {});
   }
+
+  actualizarUsuario(id:number, usuario: Partial<Usuario>): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.apiUrl}/actualizar/${id}`, usuario);
+  }
 }

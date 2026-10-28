@@ -9,6 +9,7 @@ export interface Anuncio {
   imagen: string | null;
   fechaPublicacion: string | null;
   tipo: String;
+  estado: string;
 }
 
 @Injectable({
@@ -17,7 +18,7 @@ export interface Anuncio {
 export class AnuncioService {
   private apiUrl = 'http://localhost:8080/anuncio';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   listar(): Observable<Anuncio[]> {
     return this.http.get<Anuncio[]>(`${this.apiUrl}/buscar`);
@@ -30,4 +31,8 @@ export class AnuncioService {
   eliminar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/eliminar/${id}`);
   }
+
+    actualizarAnuncio(id:number, anuncio: Partial<Anuncio>): Observable<Anuncio> {
+      return this.http.put<Anuncio>(`${this.apiUrl}/actualizar/${id}`, anuncio);
+    }
 }

@@ -41,6 +41,7 @@
         <h4>{{ a.titulo }}</h4>
         <p>{{ a.descripcion }}</p>
         <h3> tipo de anuncio <p>{{ a.tipo }}</p>
+           <button class="btn-eliminar" (click)="eliminarAnuncio(a.id_anuncio)">Eliminar Anuncio</button>
         </h3>
         <small>{{ a.fechaPublicacion | date:'dd/MM/yyyy HH:mm' }}</small>
       </div>

@@ -60,6 +60,6 @@ export class FilasComponent implements OnInit {
     }
 
     regresar() {
-        this.router.navigate(['/salas']); // Ajusta la ruta de tu lista de salas según tu app.routes
+        this.router.navigate(['/salas/nuevo']); // Ajusta la ruta de tu lista de salas según tu app.routes
     }
 }

@@ -20,9 +20,9 @@ export class AnunciosComponent implements OnInit {
   descripcion = '';
   imagenBase64: string | null = null;
   guardando = false;
-  tipo ='';
+  tipo = '';
 
-  constructor(private anuncioService: AnuncioService, private router: Router) {}
+  constructor(private anuncioService: AnuncioService, private router: Router) { }
 
   ngOnInit(): void {
     this.cargarAnuncios();
@@ -90,5 +90,13 @@ export class AnunciosComponent implements OnInit {
 
   volver(): void {
     this.router.navigate(['/home']);
+  }
+
+  eliminarAnuncio(idAnuncio: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar este anuncio?')) {
+      this.anuncioService.eliminar(idAnuncio).subscribe(() => {
+        this.cargarAnuncios();
+      });
+    }
   }
 }
