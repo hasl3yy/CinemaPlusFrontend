@@ -43,6 +43,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/anuncios']);
   }
 
+    irAPeliculas(): void {
+    this.router.navigate(['/peliculas']);
+  }
+
   irACrearUsuario(): void {
     this.router.navigate(['/usuarios/nuevo']);
   }

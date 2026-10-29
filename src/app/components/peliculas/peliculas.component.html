@@ -1,0 +1,48 @@
+<div class="anuncios-container">
+  <div class="anuncios-header">
+    <h2>Gestión de peliculas</h2>
+    <button (click)="volver()">← Volver</button>
+  </div>
+
+  <div class="form-anuncio">
+    <div class="form-group">
+      <label for="titulo">Título</label>
+      <input type="text" id="titulo" [(ngModel)]="titulo" name="titulo" />
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Sinopsis</label>
+      <textarea id="descripcion" [(ngModel)]="sinopsis" name="sinopsis" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="tipo">tipo</label>
+    </div>
+
+    <div class="form-group">
+      <label for="imagen">Imagen</label>
+      <input type="file" id="imagen" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+
+    <img *ngIf="imagenPromocional" [src]="imagenPromocional" class="preview" alt="Vista previa" />
+
+    <button (click)="onGuardar()" [disabled]="guardando">
+      {{ guardando ? 'Guardando...' : 'Guardar anuncio' }}
+    </button>
+  </div>
+
+  <h3>Anuncios publicados</h3>
+  <div class="lista-anuncios">
+    <div class="tarjeta-anuncio" *ngFor="let a of anuncios()">
+
+      <img *ngIf="a.imagenPromocional" [src]="a.imagenPromocional" alt="{{ a.titulo }}" />
+      <div class="tarjeta-info">
+        <h4>{{ a.titulo }}</h4>
+        <p>{{ a.sinopsis }}</p>
+        
+           <button class="btn-eliminar" (click)="eliminarPelicula(a.id_pelicula)">Eliminar Pelicula</button>
+        
+      </div>
+    </div>
+  </div>
+</div>

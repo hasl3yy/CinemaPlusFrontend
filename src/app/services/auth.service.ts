@@ -25,7 +25,7 @@ export class AuthService {
 
   login(credentials: { correo: string; contrasena: string; estado: string }): Observable<Usuario> {
 
-    if (credentials.estado != 'ACTIVO') {
+    if (credentials.estado !== 'ACTIVO') {
       return this.http.post<Usuario>(`${this.apiUrl}/login`, credentials).pipe(
         tap((usuario) => localStorage.setItem('usuario', JSON.stringify(usuario)))
       );
