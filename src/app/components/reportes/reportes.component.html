@@ -1,0 +1,39 @@
+<div class="anuncios-container">
+  <div class="anuncios-header">
+    <h2>Reporte de ventas</h2>
+    <button (click)="volver()">← Volver</button>
+  </div>
+
+  <div class="form-anuncio">
+    <div class="form-group"><label>Desde</label><input type="date" [(ngModel)]="desde" /></div>
+    <div class="form-group"><label>Hasta</label><input type="date" [(ngModel)]="hasta" /></div>
+    <button (click)="consultar()">Filtrar</button>
+    <button (click)="limpiar()">Limpiar</button>
+  </div>
+
+  @if (reporte(); as r) {
+    <h3>Total entradas: {{ r.totalEntradas }} — Ingresos: Q{{ r.totalIngresos }}</h3>
+
+    <h3>Por película</h3>
+    <table class="tabla-usuarios">
+      <thead><tr><th>Película</th><th>Entradas</th><th>Ingresos</th></tr></thead>
+      <tbody>
+        @for (p of r.porPelicula; track p.id_pelicula) {
+          <tr><td>{{ p.titulo }}</td><td>{{ p.entradas }}</td><td>Q{{ p.ingresos }}</td></tr>
+        }
+      </tbody>
+    </table>
+
+    <h3>Por función</h3>
+    <!-- misma idea: título, sala, fecha, hora, entradas, ingresos -->
+
+        <table class="tabla-usuarios">
+      <thead><tr><th>titulo</th><th>sala</th><th>fecha</th><th>hora</th><th>entradas</th><th>ingresos</th></tr></thead>
+      <tbody>
+        @for (p of r.porFuncion; track p.id_funcion) {
+          <tr><td>{{ p.titulo }}</td><td>{{ p.sala }}</td><td>{{ p.fecha }}</td><td>{{ p.hora }}</td><td>{{ p.entradas }}</td><td>Q{{ p.ingresos }}</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
