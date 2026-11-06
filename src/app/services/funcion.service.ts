@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Pelicula } from './peliculas.service';
 import { Sala } from './salas.service';
 
@@ -22,15 +22,13 @@ export class FuncionService {
 
     constructor(private http: HttpClient) { }
 
-    listar(): Observable<Funcion[]> {
-        return this.http.get<Funcion[]>(`${this.apiUrl}/buscar`);
-    }
+listarPorPelicula(idPelicula: number): Observable<Funcion[]> {
+    return this.http.get<Funcion[]>(`${this.apiUrl}/activos/${idPelicula}`);
+}
 
-    guardar(Funcion: Partial<Funcion>): Observable<Funcion> {
-        return this.http.post<Funcion>(`${this.apiUrl}/guardar`, Funcion);
-    }
+obtener(id: number): Observable<Funcion> {
+  return this.http.get<Funcion>(`${this.apiUrl}/buscar/${id}`);
+}
 
-    eliminar(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/eliminar/${id}`);
-    }
+
 }

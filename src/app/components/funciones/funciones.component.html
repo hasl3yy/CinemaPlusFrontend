@@ -1,0 +1,42 @@
+<header>
+  <div color="primary">
+    <!-- Botón para regresar automáticamente al Tab 1 (Cartelera) -->
+    <button slot="start">
+      <button defaultHref="/tabs/tab1"></button>
+    </button>
+    <title>Funciones Disponibles</title>
+  </div>
+</header>
+
+<content class="ion-padding">
+
+
+  <!-- Si ya cargó y hay funciones -->
+  <table *ngIf="!cargando && listaFunciones.length > 0">
+    @for (funcion of listaFunciones; track funcion.id_funcion) {
+   
+        <header>
+          <h3>Sala: {{ funcion.sala?.nombre }}</h3>
+          <title>
+            {{ funcion.fecha | date: 'fullDate' }}
+          </title>
+        </header>
+
+        <content>
+          <p><strong>Hora:</strong> {{ funcion.hora.slice(0, 5) }} hrs</p>
+          <p><strong>Precio:</strong> Q{{ funcion.precio_entrada }}</p>
+
+          <button expand="block" color="success" class="ion-margin-top" (click)="seleccionarFuncion(funcion.id_funcion)">
+            Reservar / Comprar
+          </button>
+        </content>
+     
+    }
+  </table>
+
+  <!-- Si no hay funciones disponibles -->
+  <div *ngIf="!cargando && listaFunciones.length === 0" class="ion-text-center ion-padding">
+    <p>No hay funciones activas disponibles para esta película en este momento.</p>
+  </div>
+
+</content>

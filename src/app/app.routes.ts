@@ -7,12 +7,14 @@ import { SalasComponent } from './components/salas/salas.component';
 import { FilasComponent } from './components/filas/filas.component';
 import { PeliculasComponent } from './components/peliculas/peliculas.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
+import { FuncionesComponent } from './components/funciones/funciones.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'anuncios', component: AnunciosComponent },
   { path: 'peliculas', component: PeliculasComponent },
+  { path: 'funciones', component: FuncionesComponent },
   { path: 'usuarios/nuevo', component: CrearUsuarioComponent },
   { path: 'salas/nuevo', component: SalasComponent },
   { path: 'salas/:id/filas', component: FilasComponent },

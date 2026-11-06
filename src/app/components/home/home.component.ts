@@ -51,6 +51,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/reportes']);
   }
 
+    irARegistrarReserva(): void {
+    this.router.navigate(['/funciones']);
+  }
+
   irACrearUsuario(): void {
     this.router.navigate(['/usuarios/nuevo']);
   }
