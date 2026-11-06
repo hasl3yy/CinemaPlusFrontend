@@ -2,45 +2,57 @@
   <div class="home-header">
     <h2>Bienvenido, {{ usuario?.nombres }} {{ usuario?.apellidos }}</h2>
     <p>Rol: {{ usuario?.rol?.nombre }}</p>
-    <button (click)="irACrearUsuario()">Crear usuario</button>
-    <button (click)="irAAnuncios()">Gestionar anuncios</button>
-    <button (click)="irACrearSala()">Crear sala</button>
+
+    @if (esRol('administrador')) {
+      <button (click)="irACrearUsuario()">Crear usuario</button>
+      <button (click)="irACrearSala()">Crear sala</button>
+    }
+
+    @if (esRol('gerente')) {
+      <button (click)="irAPeliculas()">Películas</button>
+      <button (click)="irAFunciones()">Funciones</button>
+      <button (click)="irAAnuncios()">Gestionar anuncios</button>
+      <button (click)="irAReportes()">Reporte de ventas</button>
+    }
+
+    @if (esRol('cajero')) {
+      <button (click)="irARegistrarReserva()">Registrar reserva</button>
+    }
+
     <button (click)="onLogout()">Cerrar sesión</button>
-    <button (click)="irAFunciones()">Funciones</button>
-    <button (click)="irAPeliculas()">peliculas</button>
-    <button (click)="irAReportes()">reporte de ventas</button>
-    <button (click)="irARegistrarReserva()">registrar reserva</button>
   </div>
 
-  <h3>Usuarios registrados</h3>
-  <table class="tabla-usuarios">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombres</th>
-        <th>Apellidos</th>
-        <th>Correo</th>
-        <th>Teléfono</th>
-        <th>Usuario</th>
-        <th>Rol</th>
-        <th>Estado</th>
-        <th>Editar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let u of usuarios()">
-        <td>{{ u.id_usuario }}</td>
-        <td>{{ u.nombres }}</td>
-        <td>{{ u.apellidos }}</td>
-        <td>{{ u.correo }}</td>
-        <td>{{ u.telefono }}</td>
-        <td>{{ u.nombre_usuario }}</td>
-        <td>{{ u.rol?.nombre }}</td>
-        <td>{{ u.estado }}</td>
-        <button (click)="irAEditarUsuario(u.id_usuario)">Editar</button>
-        <button (click)="activarUsuario(u.id_usuario)" *ngIf="u.estado === 'INACTIVO'">Activar usuario</button>
-        <button (click)="desactivarUsuario(u.id_usuario)" *ngIf="u.estado === 'ACTIVO'">Desactivar usuario</button>
-      </tr>
-    </tbody>
-  </table>
+  @if (esRol('administrador')) {
+    <h3>Usuarios registrados</h3>
+    <table class="tabla-usuarios">
+      <thead>
+        <tr>
+          <th>ID</th><th>Nombres</th><th>Apellidos</th><th>Correo</th>
+          <th>Teléfono</th><th>Usuario</th><th>Rol</th><th>Estado</th><th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (u of usuarios(); track u.id_usuario) {
+          <tr>
+            <td>{{ u.id_usuario }}</td>
+            <td>{{ u.nombres }}</td>
+            <td>{{ u.apellidos }}</td>
+            <td>{{ u.correo }}</td>
+            <td>{{ u.telefono }}</td>
+            <td>{{ u.nombre_usuario }}</td>
+            <td>{{ u.rol?.nombre }}</td>
+            <td>{{ u.estado }}</td>
+            <td>
+              <button (click)="irAEditarUsuario(u.id_usuario)">Editar</button>
+              @if (u.estado === 'INACTIVO') {
+                <button (click)="activarUsuario(u.id_usuario)">Activar usuario</button>
+              } @else {
+                <button (click)="desactivarUsuario(u.id_usuario)">Desactivar usuario</button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 </div>

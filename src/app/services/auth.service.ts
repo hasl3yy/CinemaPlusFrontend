@@ -46,4 +46,16 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.getUsuarioActual() !== null;
   }
+
+getRol(): string {
+  const nombre = this.getUsuarioActual()?.rol?.nombre ?? '';
+  return nombre
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // quita tildes
+    .trim()
+    .toLowerCase();
+}
+
+tieneRol(...roles: string[]): boolean {
+  return roles.map(r => r.toLowerCase()).includes(this.getRol());
+}
 }

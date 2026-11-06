@@ -23,16 +23,15 @@ export class HomeComponent implements OnInit {
     this.usuario = this.authService.getUsuarioActual();
   }
 
-  ngOnInit(): void {
-    this.usuarioService.listar().subscribe({
-      next: (lista) => {
-        this.usuarios.set(
-          [...lista].sort((a, b) => a.nombres.localeCompare(b.nombres))
-        );
-      },
-      error: (err) => console.error('Error al cargar usuarios:', err)
-    });
+ngOnInit(): void {
+  if (this.esRol('administrador')) {
+    this.cargarUsuarios();
   }
+}
+
+esRol(...roles: string[]): boolean {
+  return this.authService.tieneRol(...roles);
+}
 
   onLogout(): void {
     this.authService.logout();
