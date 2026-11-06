@@ -32,10 +32,6 @@ export class AnuncioService {
     return this.http.delete<void>(`${this.apiUrl}/eliminar/${id}`);
   }
 
-    actualizarAnuncio(id:number, anuncio: Partial<Anuncio>): Observable<Anuncio> {
-      return this.http.put<Anuncio>(`${this.apiUrl}/actualizar/${id}`, anuncio);
-    }
-
     activar(id: number): Observable<void> {
   return this.http.put<void>(`${this.apiUrl}/activar/${id}`, {});
 }
