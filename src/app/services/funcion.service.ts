@@ -30,5 +30,17 @@ obtener(id: number): Observable<Funcion> {
   return this.http.get<Funcion>(`${this.apiUrl}/buscar/${id}`);
 }
 
+listar(): Observable<Funcion[]> {
+  return this.http.get<Funcion[]>(`${this.apiUrl}/buscar`);
+}
+guardar(f: any): Observable<Funcion> {
+  return this.http.post<Funcion>(`${this.apiUrl}/guardar`, f);
+}
+activar(id: number): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/activar/${id}`, {});
+}
+desactivar(id: number): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/desactivar/${id}`, {});
+}
 
 }

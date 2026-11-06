@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PeliculasService, Pelicula } from '../../services/peliculas.service';
+import { Genero, GeneroService } from '../../services/genero.service';
+import { Clasificacion, ClasificacionService } from '../../services/clasificacion.service';
 
 const MAX_TAMANO_MB = 2;
 
@@ -15,6 +17,8 @@ const MAX_TAMANO_MB = 2;
 })
 export class PeliculasComponent implements OnInit {
   anuncios = signal<Pelicula[]>([]);
+  generos: Genero[] = [];
+  clasificaciones: Clasificacion[] = [];
 
   titulo = '';
   sinopsis = '';
@@ -24,11 +28,23 @@ export class PeliculasComponent implements OnInit {
   imagenPromocional: string | null = null;
   estado = '';
   guardando = false;
+  idGeneroSeleccionado: number | null = null;
+  idClasificacionSeleccionada: number | null = null;
 
-  constructor(private peliculasService: PeliculasService, private router: Router) { }
+  constructor(private peliculasService: PeliculasService, private router: Router, private generoService: GeneroService, private clasificacionService: ClasificacionService) { }
 
   ngOnInit(): void {
     this.cargarPeliculas();
+
+    this.generoService.listar().subscribe({
+      next: (lista) => (this.generos = lista),
+      error: (err) => console.error('Error al cargar generos:', err)
+    });
+
+      this.clasificacionService.listar().subscribe({
+      next: (lista) => (this.clasificaciones = lista),
+      error: (err) => console.error('Error al cargar clasificaciones:', err)
+    });
   }
 
   cargarPeliculas(): void {
@@ -72,12 +88,17 @@ export class PeliculasComponent implements OnInit {
     this.peliculasService.guardar({
       titulo: this.titulo,
       sinopsis: this.sinopsis,
+      genero: this.generos.find(g => g.id_genero === this.idGeneroSeleccionado) || null,
+      clasificacion: this.clasificaciones.find(c => c.id_clasificacion === this.idClasificacionSeleccionada) || null,
+      duracion_minutos: this.duracion_minutos ?? 0,
       imagenPromocional: this.imagenPromocional
     }).subscribe({
       next: () => {
         this.guardando = false;
         this.titulo = '';
         this.sinopsis = '';
+        this.genero = '';
+        this.clasificacion = '';
         this.imagenPromocional = null;
         this.cargarPeliculas();
       },

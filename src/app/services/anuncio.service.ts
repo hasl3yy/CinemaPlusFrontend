@@ -8,7 +8,7 @@ export interface Anuncio {
   descripcion: string;
   imagen: string | null;
   fechaPublicacion: string | null;
-  tipo: String;
+  tipo: string;
   estado: string;
 }
 
@@ -35,4 +35,11 @@ export class AnuncioService {
     actualizarAnuncio(id:number, anuncio: Partial<Anuncio>): Observable<Anuncio> {
       return this.http.put<Anuncio>(`${this.apiUrl}/actualizar/${id}`, anuncio);
     }
+
+    activar(id: number): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/activar/${id}`, {});
+}
+desactivar(id: number): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/desactivar/${id}`, {});
+}
 }

@@ -15,8 +15,26 @@
       <textarea id="descripcion" [(ngModel)]="sinopsis" name="sinopsis" rows="3"></textarea>
     </div>
 
+
     <div class="form-group">
-      <label for="tipo">tipo</label>
+      <label for="duracion_minutos">Duración (minutos)</label>
+      <input type="number" id="duracion_minutos" [(ngModel)]="duracion_minutos" name="duracion_minutos" />
+    </div>
+    
+    <div class="form-group">
+      <label for="tipo">Género</label>
+      <select id="genero" [(ngModel)]="idGeneroSeleccionado" name="genero">
+        <option [ngValue]="null" disabled>Selecciona un genero</option>
+        <option *ngFor="let r of generos" [ngValue]="r.id_genero">{{ r.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="clasificacion">Clasificacion</label>
+      <select id="clasificacion" [(ngModel)]="idClasificacionSeleccionada" name="clasificacion">
+        <option [ngValue]="null" disabled>Selecciona una clasificacion</option>
+        <option *ngFor="let r of clasificaciones" [ngValue]="r.id_clasificacion">{{ r.nombre }}</option>
+      </select>
     </div>
 
     <div class="form-group">
@@ -39,9 +57,9 @@
       <div class="tarjeta-info">
         <h4>{{ a.titulo }}</h4>
         <p>{{ a.sinopsis }}</p>
-        
-           <button class="btn-eliminar" (click)="eliminarPelicula(a.id_pelicula)">Eliminar Pelicula</button>
-        
+
+        <button class="btn-eliminar" (click)="eliminarPelicula(a.id_pelicula)">Eliminar Pelicula</button>
+
       </div>
     </div>
   </div>

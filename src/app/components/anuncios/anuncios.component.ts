@@ -20,7 +20,10 @@ export class AnunciosComponent implements OnInit {
   descripcion = '';
   imagenBase64: string | null = null;
   guardando = false;
+  estado = 'ACTIVO';
   tipo = '';
+
+  idAnuncio: number | null = null; 
 
   constructor(private anuncioService: AnuncioService, private router: Router) { }
 
@@ -70,7 +73,8 @@ export class AnunciosComponent implements OnInit {
       titulo: this.titulo,
       descripcion: this.descripcion,
       imagen: this.imagenBase64,
-      tipo: this.tipo
+      tipo: this.tipo,
+      estado: this.estado
     }).subscribe({
       next: () => {
         this.guardando = false;
@@ -99,4 +103,26 @@ export class AnunciosComponent implements OnInit {
       });
     }
   }
+
+  activar(id: number) {
+
+    this.anuncioService.activar(id).subscribe(() => this.cargarAnuncios());
+  }
+
+  desactivar(id: number) {
+    if (confirm('¿Desactivar este anuncio?')) {
+      this.anuncioService.desactivar(id).subscribe(() => this.cargarAnuncios());
+    }
+  }
+
+  editar(f: Anuncio) {
+    this.idAnuncio = f.id_anuncio;
+    this.estado = f.estado;
+    this.titulo = f.titulo;
+    this.descripcion = f.descripcion;
+    this.tipo = f.tipo;
+    this.imagenBase64 = f.imagen;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
 }

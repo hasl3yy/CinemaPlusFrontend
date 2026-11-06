@@ -1,0 +1,65 @@
+<div class="anuncios-container">
+  <div class="anuncios-header">
+    <h2>Gestión de funciones</h2>
+    <button (click)="volver()">← Volver</button>
+  </div>
+
+  <div class="form-anuncio">
+    <h3>{{ editando ? 'Editar función' : 'Nueva función' }}</h3>
+
+    <div class="form-group">
+      <label>Película</label>
+      <select [(ngModel)]="idPelicula">
+        <option [ngValue]="null" disabled>Selecciona una película</option>
+        @for (p of peliculas(); track p.id_pelicula) {
+          <option [ngValue]="p.id_pelicula">{{ p.titulo }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Sala</label>
+      <select [(ngModel)]="idSala">
+        <option [ngValue]="null" disabled>Selecciona una sala</option>
+        @for (s of salas(); track s.id_sala) {
+          <option [ngValue]="s.id_sala">{{ s.nombre }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group"><label>Fecha</label><input type="date" [(ngModel)]="fecha" /></div>
+    <div class="form-group"><label>Hora</label><input type="time" [(ngModel)]="hora" /></div>
+    <div class="form-group"><label>Precio de entrada (Q)</label><input type="number" min="1" step="0.01" [(ngModel)]="precio" /></div>
+
+
+    <button (click)="onGuardar()" [disabled]="guardando">
+      {{ guardando ? 'Guardando...' : (editando ? 'Guardar cambios' : 'Crear función') }}
+    </button>
+    @if (editando) { <button (click)="limpiar()">Cancelar edición</button> }
+  </div>
+
+  <h3>Funciones programadas</h3>
+  <table class="tabla-usuarios">
+    <thead>
+      <tr><th>ID</th><th>Película</th><th>Sala</th><th>Fecha</th><th>Hora</th><th>Precio</th><th>Estado</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+      @for (f of funciones(); track f.id_funcion) {
+        <tr>
+          <td>{{ f.id_funcion }}</td>
+          <td>{{ f.pelicula?.titulo }}</td>
+          <td>{{ f.sala?.nombre }}</td>
+          <td>{{ f.fecha }}</td>
+          <td>{{ f.hora.slice(0, 5) }}</td>
+          <td>Q{{ f.precio_entrada }}</td>
+          <td>{{ f.estado }}</td>
+          <td>
+            <button (click)="editar(f)">Editar</button>
+            @if (f.estado === 'ACTIVO') { <button (click)="desactivar(f.id_funcion)">Desactivar</button> }
+            @else { <button (click)="activar(f.id_funcion)">Activar</button> }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

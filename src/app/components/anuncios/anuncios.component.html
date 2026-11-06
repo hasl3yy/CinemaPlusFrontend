@@ -42,6 +42,9 @@
         <p>{{ a.descripcion }}</p>
         <h3> tipo de anuncio <p>{{ a.tipo }}</p>
            <button class="btn-eliminar" (click)="eliminarAnuncio(a.id_anuncio)">Eliminar Anuncio</button>
+                      <button (click)="editar(a)">Editar</button>
+            @if (a.estado === 'ACTIVO') { <button (click)="desactivar(a.id_anuncio)">Desactivar</button> }
+            @else { <button (click)="activar(a.id_anuncio)">Activar</button> }
         </h3>
         <small>{{ a.fechaPublicacion | date:'dd/MM/yyyy HH:mm' }}</small>
       </div>

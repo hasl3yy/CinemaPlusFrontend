@@ -1,0 +1,73 @@
+<div class="anuncios-container">
+  <div class="anuncios-header">
+    <h2>Registrar reserva</h2>
+    <button (click)="volver()">← Volver</button>
+  </div>
+
+  <div class="form-anuncio">
+    <div class="form-group">
+      <label>Función</label>
+      <select [(ngModel)]="idFuncion" (ngModelChange)="onFuncionChange()">
+        <option [ngValue]="null" disabled>Selecciona una función</option>
+        @for (f of funciones(); track f.id_funcion) {
+          <option [ngValue]="f.id_funcion">
+            {{ f.pelicula?.titulo }} — {{ f.sala?.nombre }} — {{ f.fecha }} {{ f.hora?.slice(0,5) }} (Q{{ f.precio_entrada }})
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>NIT del cliente</label>
+      <input type="text" [(ngModel)]="nit" />
+    </div>
+
+    <div class="form-group">
+      <label>Cantidad de asientos</label>
+      <input type="number" min="1" [(ngModel)]="cantidad" (change)="sugerir()" />
+    </div>
+  </div>
+
+  @if (idFuncion) {
+    <div class="screen-bar">PANTALLA</div>
+
+    <div class="seating-grid">
+      @for (fila of filas(); track fila.nombre) {
+        <div class="row">
+          <span class="row-label">{{ fila.nombre }}</span>
+          @for (a of fila.asientos; track a.id_asiento) {
+            <button class="seat" [class.selected]="isSeleccionado(a)"
+                    [class.occupied]="isOcupado(a)" [disabled]="isOcupado(a)"
+                    (click)="toggle(a)">{{ a.numero }}</button>
+          }
+        </div>
+      }
+    </div>
+
+    <p>Total a pagar: <strong>Q{{ total }}</strong></p>
+    <div class="form-anuncio">
+      <button (click)="confirmar()" [disabled]="guardando">
+        {{ guardando ? 'Guardando...' : 'Registrar reserva' }}
+      </button>
+    </div>
+  }
+
+  <h3>Reservas registradas</h3>
+  <table class="tabla-usuarios">
+    <thead><tr><th>ID</th><th>Cliente (NIT)</th><th>Película</th><th>Sala</th><th>Entradas</th><th>Total</th><th>Estado</th></tr></thead>
+    <tbody>
+      @for (r of reservas(); track r.id_reserva) {
+        <tr>
+          <td>{{ r.id_reserva }}</td>
+          <td>{{ r.cliente?.nit }}</td>
+          <td>{{ r.funcion?.pelicula?.titulo }}</td>
+          <td>{{ r.funcion?.sala?.nombre }}</td>
+          <td>{{ r.cantidad_entradas }}</td>
+
+          <td>Q{{ r.total_a_pagar }}</td>
+          <td>{{ r.estado }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

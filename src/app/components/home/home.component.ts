@@ -51,9 +51,9 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/reportes']);
   }
 
-    irARegistrarReserva(): void {
-    this.router.navigate(['/funciones']);
-  }
+irARegistrarReserva(): void {
+  this.router.navigate(['/reservas/nueva']);
+}
 
   irACrearUsuario(): void {
     this.router.navigate(['/usuarios/nuevo']);
@@ -62,6 +62,10 @@ export class HomeComponent implements OnInit {
   irACrearSala(): void {
     this.router.navigate(['/salas/nuevo']);
   }
+
+  irAEditarUsuario(id: number): void {
+  this.router.navigate(['/usuarios/editar', id]);
+}
 
   cargarUsuarios(): void {
     this.usuarioService.listar().subscribe({
@@ -101,4 +105,8 @@ export class HomeComponent implements OnInit {
       });
     }
   }
+
+  irAFunciones(): void {
+  this.router.navigate(['/funciones']);
+}
 }

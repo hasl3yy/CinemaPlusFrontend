@@ -1,6 +1,7 @@
 <div class="crear-usuario-container">
   <div class="header">
-    <h2>Crear Usuario</h2>
+    l
+    <h2>{{ editando ? 'Editar usuario' : 'Crear usuario' }}</h2>
     <button (click)="cancelar()">← Volver</button>
   </div>
 
@@ -31,7 +32,8 @@
     </div>
 
     <div class="form-group">
-      <label for="contrasena">Contraseña</label>
+      <label for="contrasena">Contraseña {{ editando ? '(dejar vacío para no cambiarla)' : '' }}</label>
+
       <input type="password" id="contrasena" [(ngModel)]="contrasena" name="contrasena" />
     </div>
 
@@ -51,7 +53,7 @@
     <img *ngIf="fotografiaBase64" [src]="fotografiaBase64" class="preview" alt="Vista previa" />
 
     <button (click)="onGuardar()" [disabled]="guardando">
-      {{ guardando ? 'Guardando...' : 'Crear usuario' }}
+      {{ guardando ? 'Guardando...' : (editando ? 'Guardar cambios' : 'Crear usuario') }}
     </button>
   </div>
 </div>

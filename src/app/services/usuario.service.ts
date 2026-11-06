@@ -34,4 +34,8 @@ export class UsuarioService {
   actualizarUsuario(id:number, usuario: Partial<Usuario>): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.apiUrl}/actualizar/${id}`, usuario);
   }
+
+  obtener(id: number): Observable<Usuario> {
+  return this.http.get<Usuario>(`${this.apiUrl}/buscar/${id}`);
+}
 }
