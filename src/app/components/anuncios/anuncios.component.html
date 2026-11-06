@@ -1,6 +1,6 @@
 <div class="anuncios-container">
   <div class="anuncios-header">
-    <h2>Gestión de Anuncios</h2>
+    <h3>{{ idAnuncio ? 'Editar anuncio' : 'Nuevo anuncio' }}</h3>
     <button (click)="volver()">← Volver</button>
   </div>
 
@@ -28,8 +28,9 @@
     <img *ngIf="imagenBase64" [src]="imagenBase64" class="preview" alt="Vista previa" />
 
     <button (click)="onGuardar()" [disabled]="guardando">
-      {{ guardando ? 'Guardando...' : 'Guardar anuncio' }}
+      {{ guardando ? 'Guardando...' : (idAnuncio ? 'Guardar cambios' : 'Guardar anuncio') }}
     </button>
+    @if (idAnuncio) { <button (click)="limpiar()">Cancelar edición</button> }
   </div>
 
   <h3>Anuncios publicados</h3>
@@ -41,10 +42,10 @@
         <h4>{{ a.titulo }}</h4>
         <p>{{ a.descripcion }}</p>
         <h3> tipo de anuncio <p>{{ a.tipo }}</p>
-           <button class="btn-eliminar" (click)="eliminarAnuncio(a.id_anuncio)">Eliminar Anuncio</button>
-                      <button (click)="editar(a)">Editar</button>
-            @if (a.estado === 'ACTIVO') { <button (click)="desactivar(a.id_anuncio)">Desactivar</button> }
-            @else { <button (click)="activar(a.id_anuncio)">Activar</button> }
+          <button class="btn-eliminar" (click)="eliminarAnuncio(a.id_anuncio)">Eliminar Anuncio</button>
+          <button (click)="editar(a)">Editar</button>
+          @if (a.estado === 'ACTIVO') { <button (click)="desactivar(a.id_anuncio)">Desactivar</button> }
+          @else { <button (click)="activar(a.id_anuncio)">Activar</button> }
         </h3>
         <small>{{ a.fechaPublicacion | date:'dd/MM/yyyy HH:mm' }}</small>
       </div>

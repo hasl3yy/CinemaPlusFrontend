@@ -24,6 +24,7 @@ export class AnunciosComponent implements OnInit {
   tipo = '';
 
   idAnuncio: number | null = null; 
+  fechaPublicacion: string | null = null;
 
   constructor(private anuncioService: AnuncioService, private router: Router) { }
 
@@ -61,36 +62,49 @@ export class AnunciosComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
-
-  onGuardar(): void {
-    if (!this.titulo || !this.descripcion) {
-      alert('Completa título y descripción.');
-      return;
-    }
-
-    this.guardando = true;
-    this.anuncioService.guardar({
-      titulo: this.titulo,
-      descripcion: this.descripcion,
-      imagen: this.imagenBase64,
-      tipo: this.tipo,
-      estado: this.estado
-    }).subscribe({
-      next: () => {
-        this.guardando = false;
-        this.titulo = '';
-        this.descripcion = '';
-        this.imagenBase64 = null;
-        this.tipo = '';
-        this.cargarAnuncios();
-      },
-      error: (err) => {
-        this.guardando = false;
-        console.error('Error al guardar anuncio:', err);
-        alert('No se pudo guardar el anuncio.');
-      }
-    });
+onGuardar(): void {
+  if (!this.titulo || !this.descripcion) {
+    alert('Completa título y descripción.');
+    return;
   }
+
+  this.guardando = true;
+  const body: Partial<Anuncio> = {
+    titulo: this.titulo,
+    descripcion: this.descripcion,
+    imagen: this.imagenBase64,
+    tipo: this.tipo,
+    estado: this.estado
+  };
+
+  if (this.idAnuncio) {                       // <-- si está editando, manda el id
+    body.id_anuncio = this.idAnuncio;
+    body.fechaPublicacion = this.fechaPublicacion;
+  }
+
+  this.anuncioService.guardar(body).subscribe({
+    next: () => {
+      this.guardando = false;
+      this.limpiar();
+      this.cargarAnuncios();
+    },
+    error: (err) => {
+      this.guardando = false;
+      console.error('Error al guardar anuncio:', err);
+      alert('No se pudo guardar el anuncio.');
+    }
+  });
+}
+
+limpiar() {
+  this.idAnuncio = null;
+  this.titulo = '';
+  this.descripcion = '';
+  this.imagenBase64 = null;
+  this.tipo = '';
+  this.estado = 'ACTIVO';
+  this.fechaPublicacion = null;
+}
 
   volver(): void {
     this.router.navigate(['/home']);
@@ -115,14 +129,15 @@ export class AnunciosComponent implements OnInit {
     }
   }
 
-  editar(f: Anuncio) {
-    this.idAnuncio = f.id_anuncio;
-    this.estado = f.estado;
-    this.titulo = f.titulo;
-    this.descripcion = f.descripcion;
-    this.tipo = f.tipo;
-    this.imagenBase64 = f.imagen;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+editar(f: Anuncio) {
+  this.idAnuncio = f.id_anuncio;
+  this.estado = f.estado;
+  this.titulo = f.titulo;
+  this.descripcion = f.descripcion;
+  this.tipo = f.tipo;
+  this.imagenBase64 = f.imagen;
+  this.fechaPublicacion = f.fechaPublicacion;   // <-- nuevo
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 }
