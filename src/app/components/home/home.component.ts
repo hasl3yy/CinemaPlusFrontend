@@ -108,4 +108,8 @@ irARegistrarReserva(): void {
   irAFunciones(): void {
   this.router.navigate(['/funciones']);
 }
+
+irAPerfil(): void {
+  this.router.navigate(['/perfil']);
+}
 }

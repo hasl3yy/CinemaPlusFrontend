@@ -38,4 +38,12 @@ export class UsuarioService {
   obtener(id: number): Observable<Usuario> {
   return this.http.get<Usuario>(`${this.apiUrl}/buscar/${id}`);
 }
+
+actualizarPerfil(id: number, datos: Partial<Usuario>): Observable<Usuario> {
+  return this.http.put<Usuario>(`${this.apiUrl}/perfil/${id}`, datos);
+}
+
+cambiarContrasena(id: number, actual: string, nueva: string): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/cambiar-contrasena/${id}`, { actual, nueva });
+}
 }

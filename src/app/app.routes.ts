@@ -11,10 +11,13 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { RegistrarReservaComponent } from './components/registrar-reserva/registrar-reserva.component';
 import { GestionFuncionesComponent } from './components/gestion-funciones/gestion-funciones.component';
 import { sesionGuard } from './guards/sesion.guard';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
 { path: 'home', component: HomeComponent, canActivate: [sesionGuard] },
+
+{ path: 'perfil', component: PerfilComponent, canActivate: [sesionGuard] },
 
   // ADMINISTRADOR: usuarios y salas
   { path: 'usuarios/nuevo',       component: CrearUsuarioComponent, canActivate: [rolGuard('administrador')] },

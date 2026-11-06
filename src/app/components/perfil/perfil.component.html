@@ -1,0 +1,67 @@
+<div class="crear-usuario-container">
+  <div class="header">
+    <h2>Mi perfil <small>({{ rol }})</small></h2>
+    <button (click)="volver()">← Volver</button>
+  </div>
+
+  <div class="form-usuario">
+    <img *ngIf="fotografia" [src]="fotografia" class="preview" alt="Foto de perfil" />
+
+    <div class="form-group">
+      <label for="fotografia">Actualizar fotografía</label>
+      <input type="file" id="fotografia" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+
+    <div class="form-group">
+      <label for="nombres">Nombres</label>
+      <input type="text" id="nombres" [(ngModel)]="nombres" name="nombres" />
+    </div>
+
+    <div class="form-group">
+      <label for="apellidos">Apellidos</label>
+      <input type="text" id="apellidos" [(ngModel)]="apellidos" name="apellidos" />
+    </div>
+
+    <div class="form-group">
+      <label for="correo">Correo electrónico</label>
+      <input type="email" id="correo" [(ngModel)]="correo" name="correo" />
+    </div>
+
+    <div class="form-group">
+      <label for="telefono">Teléfono</label>
+      <input type="text" id="telefono" [(ngModel)]="telefono" name="telefono" />
+
+    </div>
+
+    <div class="form-group">
+      <label for="nombreUsuario">Nombre de usuario</label>
+      <input type="text" id="nombreUsuario" [(ngModel)]="nombreUsuario" name="nombreUsuario" />
+    </div>
+
+    <button (click)="guardar()" [disabled]="guardando">
+      {{ guardando ? 'Guardando...' : 'Guardar cambios' }}
+    </button>
+  </div>
+
+  <div class="form-usuario" style="margin-top: 24px;">
+    <h3>Cambiar contraseña</h3>
+
+    <div class="form-group">
+      <label for="actual">Contraseña actual</label>
+      <input type="password" id="actual" [(ngModel)]="actual" name="actual" />
+    </div>
+
+    <div class="form-group">
+      <label for="nueva">Nueva contraseña</label>
+      <input type="password" id="nueva" [(ngModel)]="nueva" name="nueva" />
+    </div>
+
+    <div class="form-group">
+      <label for="confirmar">Confirmar nueva contraseña</label>
+      <input type="password" id="confirmar" [(ngModel)]="confirmar" name="confirmar" />
+    </div>
+
+    <button (click)="cambiarContrasena()">Cambiar contraseña</button>
+  </div>
+
+</div>
