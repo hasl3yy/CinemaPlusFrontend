@@ -18,6 +18,9 @@ export class SalasComponent implements OnInit {
   salas = signal<Sala[]>([]);
   nombre = '';
   cargando = false;
+   estado = 'ACTIVO';
+
+  idSala: number | null = null;
 
   constructor(private SalaService: SalaService, private router: Router) { }
 
@@ -36,20 +39,29 @@ export class SalasComponent implements OnInit {
     });
   }
 
+ 
+
   onGuardar(): void {
     if (!this.nombre.trim()) {
-      alert('Completa todos los campos.');
+      alert('Completa el nombre de la sala.');
       return;
     }
-
+  
     this.cargando = true;
-    this.SalaService.guardar({
+    const body: Partial<Sala> = {
       nombre: this.nombre,
-      estado: 'ACTIVO',
-    }).subscribe({
+      estado: this.estado
+    };
+  
+    if (this.idSala) {                       // <-- si está editando, manda el id
+      body.id_sala = this.idSala;
+      body.nombre = this.nombre;
+    }
+  
+    this.SalaService.guardar(body).subscribe({
       next: () => {
-        this.nombre = '';
         this.cargando = false;
+        this.limpiar();
         this.cargarSalas();
       },
       error: (err) => {
@@ -59,6 +71,11 @@ export class SalasComponent implements OnInit {
       }
     });
   }
+
+  limpiar() {
+  this.idSala = null;
+  this.nombre = '';
+}
 
   administrarFilas(idSala: number): void {
     this.router.navigate(['/salas', idSala, 'filas']);
@@ -92,6 +109,12 @@ export class SalasComponent implements OnInit {
         }
       });
     }
+  }
+
+  editar(f: Sala) {
+    this.idSala = f.id_sala;
+    this.nombre = f.nombre
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   volver(): void {

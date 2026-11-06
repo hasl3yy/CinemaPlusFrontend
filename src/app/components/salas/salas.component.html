@@ -28,6 +28,7 @@
         <button (click)="administrarFilas(s.id_sala)">Administrar filas</button>
         <button (click)="activarSala(s.id_sala)" *ngIf="s.estado === 'INACTIVO'">Activar sala</button>
         <button (click)="desactivarSala(s.id_sala)" *ngIf="s.estado === 'ACTIVO'">Desactivar sala</button>
+         <button (click)="editar(s)">Editar</button>
       </div>
     </div>
   </div>

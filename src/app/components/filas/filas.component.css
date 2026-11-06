@@ -9,6 +9,30 @@
   box-sizing: border-box;
 }
 
+.btn-editar,
+.btn-cancelar {
+  background-color: transparent;
+  color: #4da6ff;
+  border: 1px solid #4da6ff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.btn-editar:hover,
+.btn-cancelar:hover {
+  background-color: #4da6ff;
+  color: white;
+}
+
+.btn-cancelar {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
 .salas-header {
   display: flex;
   justify-content: space-between;

@@ -100,6 +100,7 @@ export class PeliculasComponent implements OnInit {
         this.genero = '';
         this.clasificacion = '';
         this.imagenPromocional = null;
+        this.duracion_minutos = null;
         this.cargarPeliculas();
       },
       error: (err) => {
@@ -112,6 +113,17 @@ export class PeliculasComponent implements OnInit {
 
   volver(): void {
     this.router.navigate(['/home']);
+  }
+
+    activar(id: number) {
+
+    this.peliculasService.activar(id).subscribe(() => this.cargarPeliculas());
+  }
+
+  desactivar(id: number) {
+    if (confirm('¿Desactivar esta pelicula?')) {
+      this.peliculasService.desactivar(id).subscribe(() => this.cargarPeliculas());
+    }
   }
 
   eliminarPelicula(idPelicula: number) {

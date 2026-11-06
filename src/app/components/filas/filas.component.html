@@ -1,5 +1,5 @@
 <div class="salas-container">
-  
+
   <!-- Header con botón de regresar -->
   <div class="salas-header">
     <div>
@@ -13,45 +13,36 @@
   <div class="form-sala">
     <h3>Agregar Nueva Fila</h3>
     <form (ngSubmit)="guardarFila()">
-      
+
       <div class="form-group">
         <label for="nombre">Nombre de la Fila (Ej. A, B, C...)</label>
-        <input 
-          type="text" 
-          id="nombre" 
-          [(ngModel)]="nuevaFila.nombre" 
-          name="nombre" 
-          maxlength="1" 
-          placeholder="Ej: A" 
-          required 
-        />
+        <input type="text" id="nombre" [(ngModel)]="nuevaFila.nombre" name="nombre" maxlength="1" placeholder="Ej: A"
+          required />
       </div>
 
       <div class="form-group">
         <label for="cantidad_de_asientos">Cantidad de Asientos</label>
-        <input 
-          type="number" 
-          id="cantidad_de_asientos" 
-          [(ngModel)]="nuevaFila.cantidad_de_asientos" 
-          name="cantidad_de_asientos" 
-          min="1" 
-          placeholder="Ej: 10" 
-          required 
-        />
+        <input type="number" id="cantidad_de_asientos" [(ngModel)]="nuevaFila.cantidad_de_asientos"
+          name="cantidad_de_asientos" min="1" placeholder="Ej: 10" required />
       </div>
-
-      <button type="submit">Guardar Fila y Generar Asientos</button>
+      <button type="submit">
+        {{ editando ? 'Guardar cambios' : 'Guardar Fila y Generar Asientos' }}
+      </button>
+      <button type="button" class="btn-cancelar" *ngIf="editando" (click)="cancelarEdicion()">
+        Cancelar edición
+      </button>
     </form>
   </div>
 
   <!-- Listado de Filas Existentes -->
-  <h3>Filas Existentes</h3>
+  <h3>{{ editando ? 'Editar Fila' : 'Agregar Nueva Fila' }}</h3>
   <div class="lista-salas" *ngIf="filas.length > 0; else sinFilas">
     <div class="tarjeta-sala" *ngFor="let fila of filas">
       <div class="tarjeta-info">
         <h4>Fila: {{ fila.nombre }}</h4>
         <p>Asientos totales: {{ fila.cantidad_de_asientos }}</p>
         <button class="btn-eliminar" (click)="eliminarFila(fila.id_fila)">Eliminar Fila</button>
+        <button (click)="editarFila(fila)">Editar</button>
       </div>
     </div>
   </div>

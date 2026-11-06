@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // <-- Importa esto
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilaService } from '../../services/fila.service';
+import { Fila, FilaService } from '../../services/fila.service';
 
 @Component({
     selector: 'app-filas',
@@ -14,12 +14,20 @@ import { FilaService } from '../../services/fila.service';
 export class FilasComponent implements OnInit {
     idSala!: number;
     filas: any[] = [];
+    estado = 'ACTIVO';
 
-    nuevaFila = {
+
+
+    idFilaEditando: number | null = null;
+    nuevaFila: { nombre: string; cantidad_de_asientos: number | null; sala: { id_sala: number } } = {
         nombre: '',
         cantidad_de_asientos: null,
         sala: { id_sala: 0 }
     };
+
+    get editando() { return this.idFilaEditando !== null; }
+
+    cantidad_de_asientos: number | null = null;
 
     constructor(
         private route: ActivatedRoute,
@@ -44,12 +52,22 @@ export class FilasComponent implements OnInit {
             alert('Completa todos los campos.');
             return;
         }
-        // Agregamos 'as any' para que TypeScript ignore la validación estricta de la interfaz
-        this.filaService.guardar(this.nuevaFila as any).subscribe(() => {
-            this.cargarFilas();
-            this.nuevaFila = { ...this.nuevaFila, nombre: '', cantidad_de_asientos: null };
+
+        const body: any = { ...this.nuevaFila };
+        if (this.idFilaEditando) {
+            body.id_fila = this.idFilaEditando;     // con id = edición, sin id = creación
+        }
+
+        this.filaService.guardar(body).subscribe({
+            next: () => {
+                this.cancelarEdicion();
+                this.cargarFilas();
+            },
+            error: (err) => alert(err.error || 'No se pudo guardar la fila.')
         });
     }
+
+
 
     eliminarFila(idFila: number) {
         if (confirm('¿Estás seguro de que deseas eliminar esta fila?')) {
@@ -61,5 +79,31 @@ export class FilasComponent implements OnInit {
 
     regresar() {
         this.router.navigate(['/salas/nuevo']); // Ajusta la ruta de tu lista de salas según tu app.routes
+    }
+
+    editarFila(f: any) {
+        this.idFilaEditando = f.id_fila;
+        this.nuevaFila = {
+            nombre: f.nombre,
+            cantidad_de_asientos: f.cantidad_de_asientos,
+            sala: { id_sala: this.idSala }
+        };
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    cancelarEdicion() {
+        this.idFilaEditando = null;
+        this.nuevaFila = {
+            nombre: '',
+            cantidad_de_asientos: null,
+            sala: { id_sala: this.idSala }
+        };
+    }
+
+    limpiar() {
+        this.idFilaEditando = null;
+        this.nuevaFila.nombre = '';
+        this.nuevaFila.cantidad_de_asientos = null;
+
     }
 }
